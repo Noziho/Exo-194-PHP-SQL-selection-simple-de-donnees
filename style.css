@@ -24,3 +24,7 @@ div {
     padding: 1rem;
     background: #222222;
 }
+
+h1 {
+    width: 100%;
+}
