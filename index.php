@@ -16,17 +16,17 @@ require __DIR__ . '/DB_Connect.php';
  */
 
 ?>
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
 
 <h1>Non trié</h1>
@@ -36,21 +36,16 @@ $stmt = DB_Connect::dbConnect()->prepare("
 ");
 
 
-
 if ($stmt->execute()) {
     foreach ($stmt->fetchAll() as $user) { ?>
-        <div>Utilisateur: <?= $user['nom'] . " " . $user['prenom'] . "<br>" .
-        "Rue: " . $user['rue'] . "<br>" .
-        "Numero: " . $user['numero']. "<br>".
-        "Code postal: " . $user['code_postal'] . "<br>" .
-        "Ville: " . $user['ville'] . "<br>" .
-        "Pays: " . $user['pays'] . "<br>" .
-        "Mail: " .$user['mail'] . "<br>" . "<br><br>"
+        <div><?php
+        foreach ($user as $key => $value) {
+            echo $key . " : " . $value . "<br><br><hr>";
+        } ?>
 
-        ?></div><?php
-
+        </div><?php
     }
-}?>
+} ?>
 <h1>Trié en DESC: </h1>
 <?php
 
@@ -59,30 +54,27 @@ $stmt = DB_Connect::dbConnect()->prepare("
 ");
 
 
-
 if ($stmt->execute()) {
     foreach ($stmt->fetchAll() as $user) { ?>
-        <div>Utilisateur: <?= $user['nom'] . " " . $user['prenom'] . "<br>" .
-    "Rue: " . $user['rue'] . "<br>" .
-    "Numero: " . $user['numero']. "<br>".
-    "Code postal: " . $user['code_postal'] . "<br>" .
-    "Ville: " . $user['ville'] . "<br>" .
-    "Pays: " . $user['pays'] . "<br>" .
-    "Mail: " .$user['mail'] . "<br>" . "<br><br>"
+        <div>
+            <?php
+            foreach ($user as $key => $value) {
+                echo $key . " : " . $value . "<br><br><hr>";
+            } ?>
 
-        ?></div><?php
+        </div>
+        <?php
 
     }
 }
 
 ?>
-    <h1>Trié en DESC avec nom et prénoms: </h1>
+<h1>Trié en DESC avec nom et prénoms: </h1>
 <?php
 
 $stmt = DB_Connect::dbConnect()->prepare("
     SELECT * FROM user ORDER BY id DESC
 ");
-
 
 
 if ($stmt->execute()) {
@@ -92,7 +84,7 @@ if ($stmt->execute()) {
         ?></div><?php
 
     }
-}?>
+} ?>
 
-    </body>
-    </html>
+</body>
+</html>
